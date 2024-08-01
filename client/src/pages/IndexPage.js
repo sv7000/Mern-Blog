@@ -1,10 +1,12 @@
 import Post from "../Post";
 import {useEffect, useState} from "react";
 
+const uri = 'https://mern-blog-backend-n4bj.onrender.com';
+
 export default function IndexPage() {
   const [posts,setPosts] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:4000/post').then(response => {
+    fetch('uri/post').then(response => {
       response.json().then(posts => {
         setPosts(posts);
       });

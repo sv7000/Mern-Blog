@@ -16,12 +16,14 @@ const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
 const PORT = process.env.PORT || 4000;
 
+require('dotenv').config();
+
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://sumitvds360:gUCN5NpJL2SSzW9f@cluster0.5zlp4di.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect(process.env.MongoURI);
 
 app.post('/register', async (req,res) => {
   const {username,password} = req.body;

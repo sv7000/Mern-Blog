@@ -4,12 +4,14 @@ import {formatISO9075} from "date-fns";
 import {UserContext} from "../UserContext";
 import {Link} from 'react-router-dom';
 
+const uri = 'https://mern-blog-backend-n4bj.onrender.com';
+
 export default function PostPage() {
   const [postInfo,setPostInfo] = useState(null);
   const {userInfo} = useContext(UserContext);
   const {id} = useParams();
   useEffect(() => {
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`uri/post/${id}`)
       .then(response => {
         response.json().then(postInfo => {
           setPostInfo(postInfo);
@@ -18,7 +20,7 @@ export default function PostPage() {
   }, []);
 
   function deletePost() {
-    fetch(`http://localhost:4000/delete/${id}`, { method: 'DELETE' })
+    fetch(`uri/delete/${id}`, { method: 'DELETE' })
       .then(res => {
         if (res.ok) {
           console.log("Item deleted successfully");
@@ -58,7 +60,7 @@ export default function PostPage() {
       </>
       )}
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt=""/>
+        <img src={`uri/${postInfo.cover}`} alt=""/>
       </div>
       <div className="content" dangerouslySetInnerHTML={{__html:postInfo.content}} />
     </div>
