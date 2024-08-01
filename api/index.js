@@ -14,12 +14,14 @@ const fs = require('fs');
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
+const PORT = process.env.PORT || 4000;
+
 app.use(cors({credentials:true,origin:'http://localhost:3000'}));
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://blog:RD8paskYC8Ayj09u@cluster0.pflplid.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://sumitvds360:gUCN5NpJL2SSzW9f@cluster0.5zlp4di.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0');
 
 app.post('/register', async (req,res) => {
   const {username,password} = req.body;
@@ -134,5 +136,12 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
-app.listen(4000);
-//
+app.delete('/delete/:id', async (req, res) => {
+  const {id} = req.params;
+  await Post.findByIdAndDelete(id);
+  res.status(200).json("Deleted successfully");
+})
+
+app.listen(PORT);
+
+//mongodb+srv://sumitvds360:gUCN5NpJL2SSzW9f@cluster0.5zlp4di.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
